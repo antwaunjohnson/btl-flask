@@ -10,6 +10,7 @@ marshmallow-sqlalchemy = "*"
 flask-marshmallow = "*"
 python-dotenv = "*"
 psycopg2 = "*"
+email-validator = "*"
 
 [dev-packages]
 

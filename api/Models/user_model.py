@@ -1,9 +1,9 @@
-from flask_security import UserMixin, RoleMixin
+from flask_security import UserMixin, RoleMixin, SQLAlchemyUserDatastore
 from sqlalchemy.orm import backref
-from api.extensions import db
+from api.extensions import db, Security
 
 
-class Role(db.Model):
+class RolesUsers(db.Model):
     __tablename__ = 'roles_users'
     id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column('user_id', db.Integer(), db.ForeignKey('user.id'))
@@ -24,3 +24,7 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.Datetime())
     roles = db.relationsihp('Role', secondary='roles_users', backref=backref('users', lazy='dynamic'))
+
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(user_datastore)
