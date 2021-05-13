@@ -11,6 +11,10 @@ flask-marshmallow = "*"
 python-dotenv = "*"
 psycopg2 = "*"
 email-validator = "*"
+flask-security-too = "*"
+bcrypt = "*"
+click = "*"
+flask-babelex = "*"
 
 [dev-packages]
 
