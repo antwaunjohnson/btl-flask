@@ -23,6 +23,8 @@ def create_app():
     app.cli.add_command(create_roles)  
     app.shell_context_processors.append(shell_context_processor)  
 
+    from api.Routes.admin_routes import admin
+    app.register_blueprint(admin)
     
 
     return app

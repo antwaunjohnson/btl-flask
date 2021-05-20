@@ -1,6 +1,6 @@
 from flask_security import UserMixin, RoleMixin, SQLAlchemyUserDatastore
 from sqlalchemy.orm import backref
-from api.extensions import db, Security
+from api.extensions import db
 
 from datetime import datetime
 
@@ -23,9 +23,11 @@ class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(255), unique=True)
-    password = db.Column(db.String(255))
+    username = db.Column(db.String(255), unique=True, nullable=True)
+    password = db.Column(db.String(255), nullable=False)
+    last_login_at = db.Column(db.DateTime, default=datetime.utcnow)
+    current_login_at = db.Column(db.DateTime, default=datetime.utcnow)
     active = db.Column(db.Boolean())
-    confirmed_at = db.Column(db.DateTime, default=datetime.utcnow)
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
     roles = db.relationship('Role', secondary='roles_users', backref=backref('users', lazy='dynamic'))
 
