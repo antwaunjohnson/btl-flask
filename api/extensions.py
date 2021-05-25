@@ -4,6 +4,7 @@ from flask_security import Security
 from flask_babelex import Babel
 from flask_mail import Mail
 
+
 db = SQLAlchemy()
 ma = Marshmallow()
 security = Security()

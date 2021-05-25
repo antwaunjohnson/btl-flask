@@ -15,6 +15,7 @@ flask-security-too = "*"
 bcrypt = "*"
 click = "*"
 flask-babelex = "*"
+urllib3 = "*"
 
 [dev-packages]
 

@@ -1,6 +1,6 @@
 from flask import Flask
 
-from .extensions import db, ma, security, babel
+from .extensions import db, ma, security, babel, mail
 from .config import Development
 from .commands import create_db, shell_context_processor, drop_db
 from .commands import create_roles
@@ -16,7 +16,7 @@ def create_app():
     ma.init_app(app)
     security.init_app(app, user_datastore)
     babel.init_app(app)
-    
+    mail.init_app(app)
     
     app.cli.add_command(create_db)  
     app.cli.add_command(drop_db)
@@ -25,6 +25,8 @@ def create_app():
 
     from api.Routes.admin_routes import admin
     app.register_blueprint(admin)
+    from api.Routes.user_routes import user
+    app.register_blueprint(user)
     
 
     return app

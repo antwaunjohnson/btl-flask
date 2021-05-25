@@ -17,6 +17,7 @@ class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
+    
 
 
 class User(db.Model, UserMixin):
@@ -30,6 +31,31 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean())
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
     roles = db.relationship('Role', secondary='roles_users', backref=backref('users', lazy='dynamic'))
+
+    def get_users():
+        """Return list of all users"""
+        attrs = (
+            "email",
+            "active",
+            "confirmed_at",
+            "create_datetime",
+            "update_datetime",
+            "last_login_at"
+        )
+        query = User.user_model.query
+        users = query.all()
+
+        info = []
+        for user in users:
+            userdata = {}
+            for attr in attrs:
+                userdata[attr] = getattr(user, attr)
+                userdata['roles'] = [r.name for r in user.roles]
+                info.append(userdata)
+
+                return {"msg" : [], "data": info}
+
+    
 
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
