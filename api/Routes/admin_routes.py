@@ -16,7 +16,7 @@ roles_schema = RoleSchema(many=True)
 class UserSchema(ma.Schema):
     class Meta:
         fields = ('email', 'active','last_login_at', 'current_login_at')
-        roles = ma.Nested(RoleSchema, many=True)
+        
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
