@@ -30,6 +30,7 @@ class User(db.Model, UserMixin):
     current_login_at = db.Column(db.DateTime, default=datetime.utcnow)
     active = db.Column(db.Boolean())
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
+    blogs = db.relationship('Blog', backref='blog', lazy=True)
     roles = db.relationship('Role', secondary='roles_users', backref=backref('users', lazy='dynamic'))
 
     def get_users():

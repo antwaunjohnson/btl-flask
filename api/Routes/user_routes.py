@@ -21,7 +21,7 @@ roles_schema = RoleSchema(many=True)
 class UserSchema(ma.Schema):
     class Meta:
         model = User
-        fields = ('email', 'active','last_login_at', 'current_login_at')
+        fields = ('id','email', 'active','last_login_at', 'current_login_at')
 
         
         
@@ -41,3 +41,13 @@ def new_creator():
         user_datastore.add_role_to_user(current_user, creator)
         db.session.commit()
         return user_schema.jsonify(user)
+
+""" Continue investingating how to delete users"""
+@user.route('/delete/<id>')
+@login_required
+def delete_account(id):
+    user_datastore.find_user(User.get_id(id))
+    user_datastore.delete_user(user)
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify("You're account has been successfully deleted")

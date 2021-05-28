@@ -2,6 +2,7 @@ import click
 from flask.cli import with_appcontext
 from .extensions import db
 from .Models.user_model import User, Role, RolesUsers
+from .Models.blog_model import Blog
 
 
 
@@ -32,4 +33,4 @@ def create_roles():
 
 
 def shell_context_processor():
-    return{"db": db, "User": User, "Role": Role, "RolesUsers": RolesUsers}
+    return{"db": db, "User": User, "Role": Role, "RolesUsers": RolesUsers, "Blog" : Blog}
